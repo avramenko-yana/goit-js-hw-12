@@ -7,12 +7,221 @@
 /* Common styles */
 @import url('./reset.css');
 @import url('./base.css');
-@import url('./container.css');
-@import url('./animations.css');
+ 
+/* css/styles.css */
 
-/* Sections style */
-@import url('./header.css');
-@import url('./vite-promo.css');
-@import url('./badges.css');
-@import url('./back-link.css');
-@import url('./footer.css');
+/* Базові стилі для тіла сторінки */
+body {
+  font-family: Montserrat, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  background-color: #fff;
+   
+}
+
+.container {
+  max-width: 1200px;
+  
+  margin: 0 auto;
+ 
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+
+}
+
+ 
+.form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+
+.form input[type="text"] {
+  outline: none;
+  width: 272px;
+    height: 40px;
+    box-sizing: border-box;
+  padding: 8px 16px;
+  border-radius: 4px;
+    border: 1px solid #808080;
+  color: #808080;
+  
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+     
+    letter-spacing: 0.64px;
+   
+}
+.form input[type="text"]:hover {
+  border-radius: 4px;
+    border: 1px solid #000;
+    outline: none;
+}
+.form input[type="text"]:focus {
+border-radius: 4px;
+  border: 1px solid #4E75FF;
+  color: #2E2F42;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+     
+    letter-spacing: 0.64px;
+}
+.form button[type="submit"]  {
+  width: 91px;
+  height: 40px;
+  margin-left: 8px;
+  padding: 8px 16px;
+  background-color: #4E75FF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+    line-height: 24px;
+     
+    letter-spacing: 0.64px;
+  transition: background-color 0.3s ease;
+}
+
+.form button[type="submit"]:hover {
+  background-color: #6C8CFF;
+}
+
+ 
+.gallery {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+   
+  gap: 24px;
+  
+}
+
+.gallery-item {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+   
+  flex-direction: column;
+  height: 200px;
+  width: 360px;
+ 
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: 152px;
+ 
+  object-fit: cover;
+   
+}
+
+.gallery-item .info {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+   gap: 10px;
+  background-color: #fff;
+  height: 48px;
+  
+}
+
+.gallery-item .info-item {
+  color: #2E2F42;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    
+    letter-spacing: 0.48px;
+    text-align: center;
+}
+
+.gallery-item .info-item b {
+  color: #2E2F42;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+  
+    letter-spacing: 0.48px;
+}
+
+ 
+.iziToast {
+  border-radius: 4px !important;
+  border-bottom: 2px solid #FFBEBE !important;
+  background: #EF4040 !important;
+  
+   
+   
+}
+
+ .loader {
+   display: none;
+   width: 48px;
+   height: 48px;
+   border: 5px solid #ccc;
+   border-top: 5px solid #EF4040;
+   border-radius: 50%;
+   animation: spin 5s linear infinite;
+   margin: 20px auto;
+ }
+
+ .loader.visible {
+   display: block;
+ }
+
+ @keyframes spin {
+   to {
+     transform: rotate(360deg);
+   }
+ }
+
+ .load-more-button {
+   display: block;
+   /* Робимо кнопку блоковою для центрування */
+   margin: 20px auto;
+   /* Центруємо кнопку та додаємо верхній відступ */
+   padding: 8px 16px;
+   background-color: #4E75FF;
+   color: white;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+   font-family: Montserrat;
+   font-size: 16px;
+   font-weight: 500;
+   line-height: 24px;
+   letter-spacing: 0.64px;
+   transition: background-color 0.3s ease;
+ }
+
+ .load-more-button:hover {
+   background-color: #6C8CFF;
+ }
+
+ /* Клас для приховування елемента */
+ .is-hidden {
+   display: none;
+ }
