@@ -10,7 +10,7 @@ import {
   getGalleryCardHeight // Імпортуємо функцію для отримання висоти картки
 } from './js/render-functions'; // Імпортуємо функції рендеру та керування лоадером
 import iziToast from "izitoast"; // Імпортуємо бібліотеку повідомлень
-import "izitoast/dist/css/iziToast.min.css"; // Імпортуємо стилі iziToast
+import "izitoast/dist/css/iziToast.min.css";  
 
 
 // Знаходимо елементи DOM
