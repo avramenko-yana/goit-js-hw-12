@@ -1,40 +1,40 @@
-// js/main.js
-import { getImagesByQuery } from './js/pixabay-api'; // Імпортуємо функцію запиту до API
+ 
+import { getImagesByQuery } from './js/pixabay-api'; 
 import {
-  appendGalleryMarkup, // Змінили імпорт, тепер додаємо розмітку
+  appendGalleryMarkup,  
   clearGallery,
   showLoader,
   hideLoader,
-  showLoadMoreButton, // Імпортуємо нові функції для кнопки
+  showLoadMoreButton,  
   hideLoadMoreButton,
-  getGalleryCardHeight // Імпортуємо функцію для отримання висоти картки
-} from './js/render-functions'; // Імпортуємо функції рендеру та керування лоадером
-import iziToast from "izitoast"; // Імпортуємо бібліотеку повідомлень
+  getGalleryCardHeight  
+} from './js/render-functions';  
+import iziToast from "izitoast"; 
 import "izitoast/dist/css/iziToast.min.css";  
 
 
-// Знаходимо елементи DOM
+ 
 const searchForm = document.querySelector('.form');
 const searchInput = searchForm.querySelector('input[name="search-text"]');
-const loadMoreButton = document.querySelector('.load-more-button'); // Знаходимо кнопку "Load more"
+const loadMoreButton = document.querySelector('.load-more-button');  
 
-// Змінні стану для пагінації та поточного запиту
+ 
 let currentQuery = '';
 let currentPage = 1;
-const perPage = 15; // Кількість елементів на сторінці, як вимагає ТЗ
-let totalHits = 0; // Загальна кількість знайдених зображень
+const perPage = 15;  
+let totalHits = 0;  
 
-// Приховуємо кнопку "Load more" при першому завантаженні сторінки
+ 
 hideLoadMoreButton();
 
 
-// Обробник події 'submit' для форми пошуку
+ 
 searchForm.addEventListener('submit', async (event) => {
-  event.preventDefault(); // Зупиняємо стандартну дію браузера (перезавантаження сторінки)
+  event.preventDefault();  
 
-  const query = searchInput.value.trim(); // Отримуємо пошуковий запит
+  const query = searchInput.value.trim();  
 
-  // Перевіряємо, чи не є запит порожнім рядком
+  
   if (query === '') {
     iziToast.warning({
       title: 'Увага',
@@ -44,19 +44,19 @@ searchForm.addEventListener('submit', async (event) => {
     return;
   }
 
-  // Скидаємо стан для нового пошуку
+   
   currentQuery = query;
   currentPage = 1;
-  totalHits = 0; // Скидаємо загальну кількість знайдених зображень
-  clearGallery(); // Очищаємо галерею
-  hideLoadMoreButton(); // Приховуємо кнопку "Load more" перед новим пошуком
-  showLoader(); // Показуємо індикатор завантаження
+  totalHits = 0; 
+  clearGallery();  
+  hideLoadMoreButton();  
+  showLoader();  
 
   try {
-    // Виконуємо перший запит до Pixabay API
+     
     const data = await getImagesByQuery(currentQuery, currentPage);
 
-    // Перевіряємо, чи отримано будь-які зображення
+     
     if (data.hits.length === 0) {
       iziToast.info({
         title: 'Інформація',
@@ -64,15 +64,15 @@ searchForm.addEventListener('submit', async (event) => {
         position: 'topRight',
       });
     } else {
-      // Якщо зображення знайдені, відображаємо їх
-      appendGalleryMarkup(data.hits); // Використовуємо appendGalleryMarkup
-      totalHits = data.totalHits; // Зберігаємо загальну кількість знайдених зображень
+      
+      appendGalleryMarkup(data.hits);  
+      totalHits = data.totalHits;  
 
-      // Перевіряємо, чи є ще сторінки для завантаження
+     
       if (data.hits.length < totalHits) {
-         showLoadMoreButton(); // Показуємо кнопку "Load more"
+         showLoadMoreButton();  
       } else {
-         // Якщо на першій сторінці вже всі результати
+         
          iziToast.info({
            title: 'Інформація',
            message: "We're sorry, but you've reached the end of search results.",
@@ -82,7 +82,7 @@ searchForm.addEventListener('submit', async (event) => {
     }
 
   } catch (error) {
-    // Обробка помилок запиту
+    
      iziToast.error({
         title: 'Помилка',
         message: 'Не вдалося завантажити зображення. Спробуйте пізніше.',
@@ -90,32 +90,32 @@ searchForm.addEventListener('submit', async (event) => {
       });
       console.error('Помилка пошуку:', error);
   } finally {
-    // Виконується завжди
-    hideLoader(); // Приховуємо індикатор завантаження
-    searchForm.reset(); // Очищаємо поле вводу форми
+ 
+    hideLoader();  
+    searchForm.reset(); 
   }
 });
 
-// Обробник події 'click' для кнопки "Load more"
+ 
 loadMoreButton.addEventListener('click', async () => {
-  currentPage += 1; // Збільшуємо номер сторінки
-  showLoader(); // Показуємо індикатор завантаження
-  hideLoadMoreButton(); // Приховуємо кнопку "Load more" під час завантаження
+  currentPage += 1;  
+  showLoader();  
+  hideLoadMoreButton();  
 
   try {
-    // Виконуємо запит за наступною сторінкою
+     
     const data = await getImagesByQuery(currentQuery, currentPage);
 
-    // Додаємо нові зображення до галереї
+     
     appendGalleryMarkup(data.hits);
 
-    // Перевіряємо, чи є ще сторінки для завантаження
+     
     const loadedImagesCount = currentPage * perPage;
     if (loadedImagesCount < totalHits) {
-       showLoadMoreButton(); // Показуємо кнопку "Load more"
+       showLoadMoreButton();  
     } else {
-       // Якщо дійшли до кінця колекції
-       hideLoadMoreButton(); // Ховаємо кнопку
+        
+       hideLoadMoreButton();  
        iziToast.info({
          title: 'Інформація',
          message: "We're sorry, but you've reached the end of search results.",
@@ -123,27 +123,27 @@ loadMoreButton.addEventListener('click', async () => {
        });
     }
 
-    // Плавне прокручування сторінки
+    
     const cardHeight = getGalleryCardHeight();
     if (cardHeight > 0) {
        window.scrollBy({
-         top: cardHeight * 2, // Прокручуємо на дві висоти картки
-         behavior: 'smooth' // Робимо прокручування плавним
+         top: cardHeight * 2,  
+         behavior: 'smooth'  
        });
     }
 
 
   } catch (error) {
-    // Обробка помилок запиту
+   
      iziToast.error({
         title: 'Помилка',
         message: 'Не вдалося завантажити додаткові зображення. Спробуйте пізніше.',
         position: 'topRight',
       });
       console.error('Помилка завантаження додаткових зображень:', error);
-      showLoadMoreButton(); // На випадок помилки, можливо, варто показати кнопку знову
+      showLoadMoreButton();  
   } finally {
-    // Виконується завжди
-    hideLoader(); // Приховуємо індикатор завантаження
+    
+    hideLoader();  
   }
 });

@@ -200,9 +200,9 @@ border-radius: 4px;
 
  .load-more-button {
    display: block;
-   /* Робимо кнопку блоковою для центрування */
+    
    margin: 20px auto;
-   /* Центруємо кнопку та додаємо верхній відступ */
+    
    padding: 8px 16px;
    background-color: #4E75FF;
    color: white;
@@ -221,7 +221,7 @@ border-radius: 4px;
    background-color: #6C8CFF;
  }
 
- /* Клас для приховування елемента */
+  
  .is-hidden {
    display: none;
  }
